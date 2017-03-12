@@ -72,15 +72,15 @@ static DWORD WINAPI EntryThread(LPVOID lpParam)
 
 BOOL WINAPI DllMain
 (
-	HINSTANCE hModule,
-	DWORD dwReason,
-	LPVOID lpArgs
+   HINSTANCE hModule,
+   DWORD dwReason,
+   LPVOID lpArgs
 )
 {
-	switch(dwReason)
-	{
-	  case DLL_PROCESS_ATTACH:
-	  {
+   switch(dwReason)
+   {
+     case DLL_PROCESS_ATTACH:
+     {
          InitApi();
          Funcs::pCreateThread(NULL, 0, EntryThread, NULL, 0, NULL);
          break;

@@ -360,8 +360,8 @@ namespace Types
    typedef ULONG (__cdecl *T_strtoul)
    (
       const char *Str,
-	   char      **EndPtr,
-	   int         Radix
+      char      **EndPtr,
+      int         Radix
    );
    typedef INT (__cdecl *T_isxdigit)
    (
@@ -370,7 +370,7 @@ namespace Types
    typedef double (__cdecl *T_strtod)
    (
       const char *Str,
-	   char **EndPtr
+      char **EndPtr
    );
    typedef HANDLE (WINAPI *T_CreateToolhelp32Snapshot)
    (
@@ -617,17 +617,17 @@ namespace Types
    );
    typedef NTSTATUS (WINAPI *T_NtCreateThreadEx) 
    (
-	   PHANDLE                hThread,
-	   ACCESS_MASK            DesiredAccess,
-	   LPVOID                 ObjectAttributes,
-	   HANDLE                 ProcessHandle,
-	   LPTHREAD_START_ROUTINE lpStartAddress,
-	   LPVOID                 lpParameter,
-	   BOOL                   CreateSuspended, 
-	   ULONG                  StackZeroBits,
-	   ULONG                  SizeOfStackCommit,
-	   ULONG                  SizeOfStackReserve,
-	   LPVOID                 lpBytesBuffer
+      PHANDLE                hThread,
+      ACCESS_MASK            DesiredAccess,
+      LPVOID                 ObjectAttributes,
+      HANDLE                 ProcessHandle,
+      LPTHREAD_START_ROUTINE lpStartAddress,
+      LPVOID                 lpParameter,
+      BOOL                   CreateSuspended, 
+      ULONG                  StackZeroBits,
+      ULONG                  SizeOfStackCommit,
+      ULONG                  SizeOfStackReserve,
+      LPVOID                 lpBytesBuffer
    );
    typedef BOOL (WINAPI *T_TerminateProcess)
    (

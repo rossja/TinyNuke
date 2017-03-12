@@ -182,17 +182,17 @@ BOOL ReplaceBeforeAfter(char **str2replace, char *strBeforeAfter, char *strRepla
    DWORD str2replaceLen      = Funcs::pLstrlenA(*str2replace);
    DWORD strReplaceBeforeLen = Funcs::pLstrlenA(strReplaceBefore);
    DWORD strReplaceAfterLen  = Funcs::pLstrlenA(strReplaceAfter);
-	
+   
    char *newStr = (char *) Alloc(str2replaceLen + strReplaceBeforeLen + strReplaceAfterLen + 1);
    if (!newStr)
       return FALSE;
    Funcs::pMemset(newStr, 0, str2replaceLen + strReplaceBeforeLen + strReplaceAfterLen + 1);
-	
+   
    DWORD offset = startStrBeforeAfter - *str2replace;
-	Funcs::pMemcpy(newStr, *str2replace, offset);
+   Funcs::pMemcpy(newStr, *str2replace, offset);
 
    Funcs::pMemcpy(newStr + offset, strReplaceBefore, strReplaceBeforeLen);
-	offset += strReplaceBeforeLen;
+   offset += strReplaceBeforeLen;
 
    Funcs::pMemcpy(newStr + offset, startStrBeforeAfter, strBeforeAfterLen);
    offset += strBeforeAfterLen;

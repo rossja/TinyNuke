@@ -34,38 +34,38 @@ BOOL g_isWow64;
 
 static void* malloc(size_t size)
 {
-	return HeapAlloc(g_heap, 0, size);
+   return HeapAlloc(g_heap, 0, size);
 }
 
 static void free(void* ptr)
 {
-	if(nullptr != ptr)
-		HeapFree(g_heap, 0, ptr);
+   if(nullptr != ptr)
+      HeapFree(g_heap, 0, ptr);
 }
 
 static int _wcsicmp(const wchar_t *string1, const wchar_t *string2)
 {
-	wchar_t c1;
-	wchar_t c2;
-	int i = 0;
-	do
-	{
-		c1 = string1[i];
-		if (c1 >= 'A' && c1 <= 'Z')
-			c1 += 0x20;
+   wchar_t c1;
+   wchar_t c2;
+   int i = 0;
+   do
+   {
+      c1 = string1[i];
+      if (c1 >= 'A' && c1 <= 'Z')
+         c1 += 0x20;
 
-		c2 = string2[i];
-		if (c2 >= 'A' && c2 <= 'Z')
-			c2 += 0x20;
+      c2 = string2[i];
+      if (c2 >= 'A' && c2 <= 'Z')
+         c2 += 0x20;
 
-		i++;
-	} while (c1 && c1 == c2);
-	return c1 - c2;
+      i++;
+   } while (c1 && c1 == c2);
+   return c1 - c2;
 }
 
 extern "C" void __cdecl InitWow64ext()
 {
-	IsWow64Process(GetCurrentProcess(), &g_isWow64);
+   IsWow64Process(GetCurrentProcess(), &g_isWow64);
    g_heap = GetProcessHeap();
 }
 
@@ -73,8 +73,8 @@ extern "C" void __cdecl InitWow64ext()
 #pragma warning(disable : 4409)
 extern "C"  DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...)
 {
-	if (!g_isWow64)
-		return 0;
+   if (!g_isWow64)
+      return 0;
 
     va_list args;
     va_start(args, argC);
@@ -157,8 +157,8 @@ _ls_e:                                                  ;//
 
         X64_End();
 
-		mov    ax, ds
-		mov    ss, ax
+      mov    ax, ds
+      mov    ss, ax
         mov    esp, back_esp
     }
     return _rax.v;
@@ -286,8 +286,8 @@ DWORD64 getTEB64()
 
 extern "C"  DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName)
 {
-	if (!g_isWow64)
-		return 0;
+   if (!g_isWow64)
+      return 0;
 
     TEB64 teb64;
     getMem64(&teb64, getTEB64(), sizeof(TEB64));
@@ -331,8 +331,8 @@ DWORD64 getNTDLL64()
 DWORD64 getLdrGetProcedureAddress()
 {
    DWORD64 modBase = getNTDLL64();
-	if (0 == modBase)
-		return 0;
+   if (0 == modBase)
+      return 0;
     
     IMAGE_DOS_HEADER idh;
     getMem64(&idh, modBase, sizeof(idh));
@@ -379,23 +379,23 @@ DWORD64 getLdrGetProcedureAddress()
 
 extern "C"  VOID __cdecl SetLastErrorFromX64Call(DWORD64 status)
 {
-	typedef ULONG (WINAPI *RtlNtStatusToDosError_t)(NTSTATUS Status);
-	typedef ULONG (WINAPI *RtlSetLastWin32Error_t)(NTSTATUS Status);
+   typedef ULONG (WINAPI *RtlNtStatusToDosError_t)(NTSTATUS Status);
+   typedef ULONG (WINAPI *RtlSetLastWin32Error_t)(NTSTATUS Status);
 
-	static RtlNtStatusToDosError_t RtlNtStatusToDosError = nullptr;
-	static RtlSetLastWin32Error_t RtlSetLastWin32Error = nullptr;
+   static RtlNtStatusToDosError_t RtlNtStatusToDosError = nullptr;
+   static RtlSetLastWin32Error_t RtlSetLastWin32Error = nullptr;
 
-	if ((nullptr == RtlNtStatusToDosError) || (nullptr == RtlSetLastWin32Error))
-	{
-		HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
-		RtlNtStatusToDosError = (RtlNtStatusToDosError_t)GetProcAddress(ntdll, "RtlNtStatusToDosError");
-		RtlSetLastWin32Error = (RtlSetLastWin32Error_t)GetProcAddress(ntdll, "RtlSetLastWin32Error");
-	}
-	
-	if ((nullptr != RtlNtStatusToDosError) && (nullptr != RtlSetLastWin32Error))
-	{
-		RtlSetLastWin32Error(RtlNtStatusToDosError((DWORD)status));
-	}
+   if ((nullptr == RtlNtStatusToDosError) || (nullptr == RtlSetLastWin32Error))
+   {
+      HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
+      RtlNtStatusToDosError = (RtlNtStatusToDosError_t)GetProcAddress(ntdll, "RtlNtStatusToDosError");
+      RtlSetLastWin32Error = (RtlSetLastWin32Error_t)GetProcAddress(ntdll, "RtlSetLastWin32Error");
+   }
+   
+   if ((nullptr != RtlNtStatusToDosError) && (nullptr != RtlSetLastWin32Error))
+   {
+      RtlSetLastWin32Error(RtlNtStatusToDosError((DWORD)status));
+   }
 }
 
 extern "C"  DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName)
@@ -428,9 +428,9 @@ extern "C"  SIZE_T __cdecl VirtualQueryEx64(HANDLE hProcess, DWORD64 lpAddress, 
     }
     DWORD64 ret = 0;
     DWORD64 status = X64Call(ntqvm, 6, (DWORD64)hProcess, lpAddress, (DWORD64)0, (DWORD64)lpBuffer, (DWORD64)dwLength, (DWORD64)&ret);
-	if (STATUS_SUCCESS != status)
-		SetLastErrorFromX64Call(status);
-	return (SIZE_T)ret;
+   if (STATUS_SUCCESS != status)
+      SetLastErrorFromX64Call(status);
+   return (SIZE_T)ret;
 }
 
 extern "C"  DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect)
@@ -446,11 +446,11 @@ extern "C"  DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress,
     DWORD64 tmpAddr = lpAddress;
     DWORD64 tmpSize = dwSize;
     DWORD64 ret = X64Call(ntavm, 6, (DWORD64)hProcess, (DWORD64)&tmpAddr, (DWORD64)0, (DWORD64)&tmpSize, (DWORD64)flAllocationType, (DWORD64)flProtect);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
         return tmpAddr;
 }
@@ -468,11 +468,11 @@ extern "C"  BOOL __cdecl VirtualFreeEx64(HANDLE hProcess, DWORD64 lpAddress, SIZ
     DWORD64 tmpAddr = lpAddress;
     DWORD64 tmpSize = dwSize;
     DWORD64 ret = X64Call(ntfvm, 4, (DWORD64)hProcess, (DWORD64)&tmpAddr, (DWORD64)&tmpSize, (DWORD64)dwFreeType);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
         return TRUE;
 }
@@ -490,11 +490,11 @@ extern "C"  BOOL __cdecl VirtualProtectEx64(HANDLE hProcess, DWORD64 lpAddress, 
     DWORD64 tmpAddr = lpAddress;
     DWORD64 tmpSize = dwSize;
     DWORD64 ret = X64Call(ntpvm, 5, (DWORD64)hProcess, (DWORD64)&tmpAddr, (DWORD64)&tmpSize, (DWORD64)flNewProtect, (DWORD64)lpflOldProtect);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
         return TRUE;
 }
@@ -510,11 +510,11 @@ extern "C"  BOOL __cdecl ReadProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddr
     }
     DWORD64 numOfBytes = lpNumberOfBytesRead ? *lpNumberOfBytesRead : 0;
     DWORD64 ret = X64Call(nrvm, 5, (DWORD64)hProcess, lpBaseAddress, (DWORD64)lpBuffer, (DWORD64)nSize, (DWORD64)&numOfBytes);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
     {
         if (lpNumberOfBytesRead)
@@ -534,11 +534,11 @@ extern "C"  BOOL __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAdd
     }
     DWORD64 numOfBytes = lpNumberOfBytesWritten ? *lpNumberOfBytesWritten : 0;
     DWORD64 ret = X64Call(nrvm, 5, (DWORD64)hProcess, lpBaseAddress, (DWORD64)lpBuffer, (DWORD64)nSize, (DWORD64)&numOfBytes);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
     {
         if (lpNumberOfBytesWritten)
@@ -557,11 +557,11 @@ extern "C"  BOOL __cdecl GetThreadContext64(HANDLE hThread, _CONTEXT64* lpContex
             return 0;
     }
     DWORD64 ret = X64Call(gtc, 2, (DWORD64)hThread, (DWORD64)lpContext);
-	if(STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if(STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
         return TRUE;
 }
@@ -576,11 +576,11 @@ extern "C"  BOOL __cdecl SetThreadContext64(HANDLE hThread, _CONTEXT64* lpContex
             return 0;
     }
     DWORD64 ret = X64Call(stc, 2, (DWORD64)hThread, (DWORD64)lpContext);
-	if (STATUS_SUCCESS != ret)
-	{
-		SetLastErrorFromX64Call(ret);
-		return FALSE;
-	}
+   if (STATUS_SUCCESS != ret)
+   {
+      SetLastErrorFromX64Call(ret);
+      return FALSE;
+   }
     else
         return TRUE;
 }

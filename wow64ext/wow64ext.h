@@ -360,16 +360,16 @@ struct _CONTEXT64
 extern "C"
 {
    void __cdecl InitWow64ext();
-	DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...);
-	DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName);
-	DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName);
-	SIZE_T __cdecl VirtualQueryEx64(HANDLE hProcess, DWORD64 lpAddress, MEMORY_BASIC_INFORMATION64* lpBuffer, SIZE_T dwLength);
-	DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
-	BOOL __cdecl VirtualFreeEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD dwFreeType);
-	BOOL __cdecl VirtualProtectEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flNewProtect, DWORD* lpflOldProtect);
-	BOOL __cdecl ReadProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesRead);
-	BOOL __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten);
-	BOOL __cdecl GetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
-	BOOL __cdecl SetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
-	VOID __cdecl SetLastErrorFromX64Call(DWORD64 status);
+   DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...);
+   DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName);
+   DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName);
+   SIZE_T __cdecl VirtualQueryEx64(HANDLE hProcess, DWORD64 lpAddress, MEMORY_BASIC_INFORMATION64* lpBuffer, SIZE_T dwLength);
+   DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
+   BOOL __cdecl VirtualFreeEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD dwFreeType);
+   BOOL __cdecl VirtualProtectEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flNewProtect, DWORD* lpflOldProtect);
+   BOOL __cdecl ReadProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesRead);
+   BOOL __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten);
+   BOOL __cdecl GetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
+   BOOL __cdecl SetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
+   VOID __cdecl SetLastErrorFromX64Call(DWORD64 status);
 }

