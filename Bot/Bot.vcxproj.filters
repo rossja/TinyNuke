@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\MinHook">
+      <UniqueIdentifier>{02973c9f-658a-4cd8-b6a3-ff57a4a50778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MinHook">
+      <UniqueIdentifier>{080297bb-d59c-4cb0-ad15-943361adca8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\wow64ext">
+      <UniqueIdentifier>{233dee48-2e2c-4291-b51f-b42b5c9adfbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\wow64ext">
+      <UniqueIdentifier>{2e345b9a-fd26-4f80-ba3d-ba790eea1a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AiJson">
+      <UniqueIdentifier>{87621f0f-b199-4ead-af5b-19ff85b463b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AiJson">
+      <UniqueIdentifier>{f210c39b-ed90-4936-89d9-52c86de3cd15}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HTTP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Inject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\wow64ext\wow64ext.cpp">
+      <Filter>Source Files\wow64ext</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MinHook\src\trampoline.c">
+      <Filter>Source Files\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MinHook\src\buffer.c">
+      <Filter>Source Files\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MinHook\src\hook.c">
+      <Filter>Source Files\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MinHook\src\hde\hde64.c">
+      <Filter>Source Files\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MinHook\src\hde\hde32.c">
+      <Filter>Source Files\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="BrowserUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FirefoxChrome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Explorer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AiJson\AiJson.cpp">
+      <Filter>Source Files\AiJson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AiJson\AiStrAppender.cpp">
+      <Filter>Source Files\AiJson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AiJson\AiList.cpp">
+      <Filter>Source Files\AiJson</Filter>
+    </ClCompile>
+    <ClCompile Include="WebInjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Socks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenDesktop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HTTP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Panel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wow64ext\CMemPtr.h">
+      <Filter>Header Files\wow64ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wow64ext\internal.h">
+      <Filter>Header Files\wow64ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wow64ext\resource.h">
+      <Filter>Header Files\wow64ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wow64ext\wow64ext.h">
+      <Filter>Header Files\wow64ext</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\hde\hde32.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\hde\hde64.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\hde\pstdint.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\hde\table32.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\hde\table64.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\trampoline.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\src\buffer.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MinHook\include\MinHook.h">
+      <Filter>Header Files\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="BrowserUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebInjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FirefoxChrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Explorer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Socks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AiJson\AiJson.h">
+      <Filter>Header Files\AiJson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AiJson\AiList.h">
+      <Filter>Header Files\AiJson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AiJson\AiStrAppender.h">
+      <Filter>Header Files\AiJson</Filter>
+    </ClInclude>
+    <ClInclude Include="HiddenDesktop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

