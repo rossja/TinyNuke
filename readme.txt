@@ -3,10 +3,11 @@ This repository contains the source code of TinyNuke which is a zeus-style troja
 Main Features:
 ==============
 
- - Formgrabber and Webinjects for Firefox, Internet Explorer and Chrome x86 and x64
+ - Formgrabber and Webinjects for Firefox, Internet Explorer and Chrome. Can inject x86 as well as x64 browsers.
  - Reverse SOCKS 4
  - HVNC like Hidden Desktop
  - Trusteer Bypass
+ - ~32kb binary with obfuscated strings ~20kb without
 
 Installation:
 =============
