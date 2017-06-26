@@ -1,9 +1,8 @@
 # NOTE
 This repo is a fork of [one](https://github.com/aainz/TinyNuke) which
 has since been deleted by its author. I didn't write the code, but
-find it useful (hence, forked it).
+find it useful (hence, forked it). I don't offer support for it, but don't plan to delete it either.
 
-I don't offer support for it, but don't plan to delete it either.
 Original README follows:
 
 ----
